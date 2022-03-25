@@ -2,23 +2,29 @@
 
 The files in this repository were used to configure the network depicted below.
 
-![Network Diagram] https://github.com/G-Mully/ELK-Project/blob/main/Diagrams/elk_network_diagram.png
+![](Diagrams/elk_network_diagram.png)
+
+<br>
 
 These files have been tested and used to generate a live ELK deployment on Azure. They can be used to either recreate the entire deployment pictured above. Alternatively, select portions of the respective playbook file may be used to install only certain pieces of it, such as Filebeat.
 
-(Link files from Github once this is completed)
-## filebeat-config.yml  
-## filebeat-playbook.yml
-## metricbeat-configuration.yml
-## metricbeat-playbook.yml
+- [filebeat-config.yml](Ansible/filebeat-config.ymlansible_config.yml)
+- [filebeat-playbook.yml](Ansible/filebeat-playbook.yml)
+- [metricbeat-configuration.yml](Ansible/metricbeat-configuration.yml)
+- [metricbeat-playbook.yml](Ansible/metricbeat-playbook.yml)
 
-This document contains the following details:
+
+<br>
+
+## This document contains the following details:
 - Description of the Topologu
 - Access Policies
 - ELK Configuration
   - Beats in Use
   - Machines Being Monitored
 - How to Use the Ansible Build
+
+<br>
 
 ### Description of the Topology
 
@@ -37,7 +43,9 @@ The configuration details of each machine may be found below.
 | Web-2      | Traffic Monitoring         | 10.1.0.5   | Linux (ubuntu 18.04) |
 | ELK Server | Data Analytics Generation  | 10.2.0.4   | Linux (ubuntu 18.04) |
 
-### Access Policies
+<br>
+
+## Access Policies
 
 The machines on the internal network are not exposed to the public Internet. 
 
@@ -45,7 +53,7 @@ Only the Jump Box / Provisioner machine can accept connections from the Internet
 
 Machines within the network can only be accessed by Jump Box / Provisioner within its cooresponding ansible container @ 10.1.0.4.
 
-A summary of the access policies in place can be found in the table below.
+A summary of the access policies in place can be found in the table below:
 
 | Name       | Publicly Accessible | Allowed IP Addresses    |
 |------------|---------------------|-------------------------|
@@ -54,7 +62,9 @@ A summary of the access policies in place can be found in the table below.
 | Web-2      | No                  |                         |
 | ELK Server | Yes                 | SSH from Whitelisted IP |
 
-### Elk Configuration
+<br>
+
+## Elk Configuration
 
 Ansible was used to automate configuration of the ELK machine. No configuration was performed manually, which is advantageous because this reduces deployment time per container, allows for scalable deployment and eliminates manual configuration entry errors.
 
@@ -63,11 +73,22 @@ The playbook implements the following tasks:
 - Configures sysctl modules 
 - Sets the docker services to boot on docker start
 
-The following screenshot displays the result of running `docker ps` after successfully configuring the ELK instance.
+<br>
+The following screenshot displays the result of running "docker ps" after successfully configuring the ELK instance.
 
-![TODO: Update the path with the name of your screenshot of docker ps output](Images/docker_ps_output.png)
+<br>
 
-### Target Machines & Beats
+![](Screenshots/ELK_Container.png)
+
+<br>
+
+Here is the Ansible docker as well
+
+![](Screenshots/Ansible_Container.png)
+
+<br>
+
+## Target Machines & Beats
 This ELK server is configured to monitor the following machines:
 -Web-1: 10.1.0.5
 -Web-2: 10.1.0.6
@@ -80,7 +101,9 @@ These Beats allow us to collect the following information from each machine:
 - Filebeats - a lightweight way to forward and centralize logs and files
 - Metricbeats - a lightweight way to send system and service statistics
 
-### Using the Playbook
+<br>
+
+## Using the Playbook
 In order to use the playbook, you will need to have an Ansible control node already configured. Assuming you have such a control node provisioned: 
 
 SSH into the control node and follow the steps below:
@@ -93,28 +116,41 @@ The two playbook files you will need to be concerned with is filebeat-playbook.y
 
 You will need to update filebeat-config.yml & metricbeat-configuration.yml specifically on lines 1106 and 1806 and add the ELK private IP address of 10.2.0.4 so that the deployment of the Kibana monitor modules are deployed properly on the ELK server.
 
-## Line 1106 - update the hosts IP address to your ELK servers private IP
-hosts: ["10.2.0.4:9200"]
-username: "elastic"
-password: "changeme" # TODO: Change this to the password you set
+<br>
 
-## Line 1806 - perform the same action as above
-setup.kibana:
-  host: "10.2.0.4:5601" # TODO: Change this to the IP address of your ELK server
+### Line 1106 - update the hosts IP address to your ELK servers private IP
+hosts: ["10.2.0.4:9200"]<br>
+username: "elastic"<br>
+password: "changeme" # (Change this to the password you set)<br>
+
+<br>
+
+### Line 1806 - perform the same action as above
+setup.kibana:<br>
+  host: "10.2.0.4:5601" # (Change this to the IP address of your ELK server)
+
+<br>
 
 You will also need to update the hosts file in the ansible container to show proper targets for deployment and monitoring for the ELK server 
 
-[webservers]
-10.1.0.5 ansible_python_interpreter=/usr/bin/python3
+<br>
+
+[webservers]<br>
+10.1.0.5 ansible_python_interpreter=/usr/bin/python3 <br>
 10.1.0.6 ansible_python_interpreter=/usr/bin/python3
 
 [elk]
 10.2.0.4 ansible_python_interpreter=/usr/bin/python3
 
+<br>
+
 Once all of the configurations have been set run the follwing commands from the ansible container:
 
-ansible-playbook filebeat-playbook.yml
+<br>
+
+ansible-playbook filebeat-playbook.yml<br>
 ansible-playbook metricbeat-playbook.yml
 
-If the deployment has run sucessfully you should be able to head to http://138.91.189.232:5601/app/kibana#/home and Kibana should come up in your web browser.
+<br>
 
+If the deployment has run sucessfully you should be able to head to http://138.91.189.232:5601/app/kibana#/home and Kibana should come up in your web browser.
