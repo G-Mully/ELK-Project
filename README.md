@@ -141,11 +141,14 @@ You will also need to update the hosts file in the ansible container to show pro
 10.2.0.4 ansible_python_interpreter=/usr/bin/python3
 
 <br>
+
 Once all of the configurations have been set run the follwing commands from the ansible container:
 
 <br>
+
 ansible-playbook filebeat-playbook.yml<br>
 ansible-playbook metricbeat-playbook.yml
 
 <br>
+
 If the deployment has run sucessfully you should be able to head to http://138.91.189.232:5601/app/kibana#/home and Kibana should come up in your web browser.
