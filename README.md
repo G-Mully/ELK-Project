@@ -74,17 +74,14 @@ The playbook implements the following tasks:
 - Sets the docker services to boot on docker start
 
 <br>
-
 The following screenshot displays the result of running "docker ps" after successfully configuring the ELK instance.
 
-<br>
 
 ![](Screenshots/ELK_Container.png)
 
 <br>
 
 Here is the Ansible docker as well
-
 ![](Screenshots/Ansible_Container.png)
 
 <br>
